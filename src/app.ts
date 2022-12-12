@@ -1,19 +1,23 @@
-import express, { Application, Response, Request, NextFunction } from "express";
+import express, { Application, Response, Request } from "express";
 import "dotenv/config.js";
 import { fetchData } from "./fetch/fetchData";
+import db from "./db";
+import { getAllData } from "./controllers/data";
 
 const app: Application = express();
 const port: string | number = process.env.PORT || 3000;
 
-const states: Array<any> = [];
-
+const numberOfResults: number = 500;
+const resultsPerPage: number = 20;
+const n: number = numberOfResults / resultsPerPage;
 fetchData(1);
 
-app.get("/", (req: Request, res: Response) => {
-  res.send(states);
+app.get("/", async (req: Request, res: Response): Promise<any> => {
+  const results = await db.query("SELECT * FROM posts;");
+  res.send(results);
 });
 
-app.post("/data", (req: Request, res: Response) => {});
+app.get("/data", getAllData);
 
 app.listen(port, (): void => {
   console.log(`Running on http://localhost:${port}`);
