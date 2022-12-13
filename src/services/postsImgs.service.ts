@@ -1,19 +1,18 @@
 import { QueryResult } from "pg";
-import db from "../db";
-
+import db, { pool } from "../db";
 /**
  * @description Creates a record in posts table (title + location) and in imgs table (imgs). Transactions are used.
- * @param title title of the property - e.g Prodej bytu v Praze 47m
- * @param location location of the property - e.g Praha
- * @param imgs image urls of the property - e.g. https://seznam.cz
+ * @param {string} title title of the property - e.g Prodej bytu v Praze 47m
+ * @param {string} location location of the property - e.g Praha
+ * @param {Array} imgs image urls of the property - e.g. https://seznam.cz
  */
 export const createPostsAndImgs = async (
   title: string,
   location: string,
   imgs: Array<any>
 ) => {
-  let tmpId = 0;
   try {
+    await db.query("BEGIN");
     const results: QueryResult = await db.query(
       "INSERT INTO posts (title, loc) VALUES ($1, $2) RETURNING id",
       [title, location]

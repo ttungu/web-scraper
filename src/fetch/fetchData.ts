@@ -11,8 +11,9 @@ import { createPostsAndImgs } from "../services/postsImgs.service";
 export const fetchData = async (pagesToScrape: number) => {
   const url = `https://www.sreality.cz/hledani/prodej/byty?strana=1}`;
   const browser: Browser = await puppeteer.launch({
-    // headless: false,
-    userDataDir: "./tmp",
+    headless: true,
+    executablePath: "/usr/bin/chromium-browser",
+    args: ["--no-sandbox", "--disable-gpu"],
   });
   const page: Page = await browser.newPage();
   // await page.setViewport({
@@ -92,7 +93,7 @@ export const fetchData = async (pagesToScrape: number) => {
       )?.textContent;
       return Number(el);
     });
-    console.log(pageNumber);
+    console.log(`Scraped ${pageNumber} page(s).`);
     if (pageNumber === pagesToScrape) {
       isEnd = true;
     }
