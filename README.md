@@ -1,6 +1,6 @@
 # Web Scraper
 
-API automatically scrapes 500 results from `https://www.sreality.cz/hledani/prodej/byty`
+API automatically scrapes 500 results (25 pages) from `https://www.sreality.cz/hledani/prodej/byty`
 
 Run `docker-compose up --build` inside the main project directory
 
