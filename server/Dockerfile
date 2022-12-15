@@ -6,9 +6,7 @@ ENV PUPPETEER_SKIP_CHROMIUM_DOWNLOAD=true
 RUN apk update && \
     apk add --no-cache \
       chromium \
-      harfbuzz \
       "freetype>2.8" \
-      ttf-freefont \
       nss
 # install app
 
