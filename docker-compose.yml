@@ -14,8 +14,15 @@ services:
     command: -p ${PGPORT}
 
   api:
-    build: .
+    build: ./server
     ports:
-      - "${PORT}:${PORT}"
+      - "${APIPORT}:${APIPORT}"
     depends_on:
       - db
+
+  client:
+    build: ./client
+    ports:
+      - "${CLIENTPORT}:3000"
+    depends_on:
+      - api

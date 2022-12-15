@@ -1,10 +1,12 @@
 import express, { Application, Response, Request } from "express";
 import "dotenv/config.js";
+import cors from "cors";
 import { fetchData } from "./fetch/fetchData";
 import { getAllData } from "./controllers/data";
 
 const app: Application = express();
 const port: string | number = process.env.PORT || 3000;
+app.use(cors());
 
 const numberOfResults: number = 500;
 const resultsPerPage: number = 20;

@@ -10,7 +10,7 @@ export const getAllData = async (
 ): Promise<any> => {
   const { limit, offset } = req.query;
   const query =
-    "SELECT p.title, p.loc, STRING_AGG(i.img_url, '; ') AS data FROM posts p LEFT JOIN imgs i ON p.id=i.post_id GROUP BY p.id ORDER BY p.id ASC LIMIT $1 OFFSET $2;";
+    "SELECT p.id, p.title, p.loc, STRING_AGG(i.img_url, ';') AS urls FROM posts p LEFT JOIN imgs i ON p.id=i.post_id GROUP BY p.id ORDER BY p.id ASC LIMIT $1 OFFSET $2;";
   try {
     let limitTmp: number = 20;
     let offsetTmp: number = 0;
