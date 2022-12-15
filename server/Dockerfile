@@ -3,11 +3,7 @@ FROM node:18-alpine
 # install headless browser
 ENV PUPPETEER_SKIP_CHROMIUM_DOWNLOAD=true
 
-RUN apk update && \
-    apk add --no-cache \
-      chromium \
-      "freetype>2.8" \
-      nss
+RUN apk update && apk add --no-cache chromium 
 # install app
 
 WORKDIR /usr/src/api/
